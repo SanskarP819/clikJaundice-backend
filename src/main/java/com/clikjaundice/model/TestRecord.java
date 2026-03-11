@@ -2,6 +2,7 @@ package com.clikjaundice.model;
 
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
+import java.time.ZoneOffset;
 
 @Entity
 @Table(name = "test_records")
@@ -41,7 +42,7 @@ public class TestRecord {
 
     @PrePersist
     public void prePersist() {
-        this.testedAt = LocalDateTime.now();
+        this.testedAt = LocalDateTime.now(ZoneOffset.UTC);
     }
 
     public TestRecord() {}

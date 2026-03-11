@@ -37,7 +37,8 @@ public class TestRecordService {
     private String serverPort;
 
     private static final DateTimeFormatter FORMATTER =
-            DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+            DateTimeFormatter.ofPattern("yyyy-MM-dd'T'HH:mm:ss'Z'")
+                    .withZone(java.time.ZoneOffset.UTC);
 
     public SaveTestResponse saveTest(
             String username,
@@ -120,7 +121,8 @@ public class TestRecordService {
                 r.getId(), r.getPatientId(), r.getPatientName(),
                 r.getBly(), r.getBlz(), r.getRiskLevel(), r.getChosenChannel(),
                 imageUrl,
-                r.getTestedAt() != null ? r.getTestedAt().format(FORMATTER) : null
+                r.getTestedAt() != null ?
+                        r.getTestedAt().atZone(java.time.ZoneOffset.UTC).format(FORMATTER) : null
         );
     }
 
@@ -129,7 +131,8 @@ public class TestRecordService {
                 r.getId(), r.getPatientId(), r.getPatientName(),
                 r.getBly(), r.getBlz(), r.getRiskLevel(), r.getChosenChannel(),
                 buildImageUrl(r.getImagePath(), serverHost),
-                r.getTestedAt() != null ? r.getTestedAt().format(FORMATTER) : null
+                r.getTestedAt() != null ?
+                        r.getTestedAt().atZone(java.time.ZoneOffset.UTC).format(FORMATTER) : null
         );
     }
 }
